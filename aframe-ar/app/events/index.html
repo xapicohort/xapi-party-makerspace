@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .log {
+      background: red;
+      color: white;
+    }
+  </style>
+
+  <script src="https://aframe.io/releases/0.9.1/aframe.min.js"></script>
+  <!-- include aframe-ar.js -->
+  <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+
+  <!-- <script src="https://unpkg.com/aframe-animation-component@3.2.5/dist/aframe-animation-component.min.js"></script> -->
+
+  <!-- <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> -->
+
+  <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script> -->
+
+
+  <script src="index.js"></script>
+
+  <body>
+    <div
+      style="position: fixed; top: 10px; left: 5px; text-align: center; z-index: 1;"
+    >
+      <div class="log">STARTING...</div>
+    </div>
+    <a-scene
+      embedded
+      arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;"
+    >
+      
+    <!-- <a-assets>
+      <a-asset-item
+        id="animated-asset"
+        src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/models/CesiumMan.gltf"
+      ></a-asset-item>
+    </a-assets> -->
+
+    <!-- <a-assets>
+      <a-asset-item
+        id="animated-asset"
+        src="models/RiggedFigure.gltf"
+      ></a-asset-item>
+    </a-assets> -->
+
+    <!-- preset="hiro"  -->
+      <a-marker 
+        markerhandler 
+        eventhandler
+        type="pattern" 
+        url="marker/pattern-marker-xapi.patt" 
+        id="marker" 
+        emitevents="true" 
+        cursor="rayOrigin: mouse" 
+        raycaster="objects: [data-raycastable]" 
+        smooth="true" 
+        smoothCount="2"
+        >
+
+
+        <!-- <a-entity id="fox1" rotation="0 -25 0">
+          <a-entity position="0 0 0" animation__position="property: position; loop: true; easing: linear; dur: 8000; to: 80 0 0;">
+            <a-entity position="0 0 0" scale="0.02 0.02 0.02" rotation="0 80 0" shadow="cast: true" json-model="src: url(models/fox.json);" animation-mixer="duration: 0.4;"></a-entity>
+          </a-entity>
+        </a-entity> -->
+
+        <!-- <a-entity json-model="src: url(models/fox.json);"></a-entity> -->
+
+        <!-- <a-entity id="fox1" rotation="0 -25 0">
+          <a-entity position="0 0 0" scale="0.02 0.02 0.02" rotation="0 80 0" json-model="src: url(models/fox.json);"></a-entity>
+        </a-entity> -->
+
+        <!-- <a-entity id="animated-model" gltf-model="#animated-asset" rotation="-90 0 0" position="0 0 0" animation-mixer="duration: 0.4;" scale="0.5 0.5 0.5"></a-entity> -->
+        <!-- material="opacity: 0.5; side: double;color:blue;"  -->
+
+        <!-- <a-box
+          id="model"
+          position="0 0.5 0" 
+          scale="1 0.5 1" 
+          material="opacity: 0.5; side: double; color: red;" 
+          data-raycastable="true" 
+          animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true" 
+        >
+        </a-box> -->
+
+        <!-- <a-entity text="value: Hello World; color: white;" position="0 0 0"></a-entity> -->
+
+
+        <a-box opacity="0.8" color="blue" width="1" height="1" depth="0.1"
+        position="0 1.5 -0"
+        rotation="90 0 0"
+        text="align: center; color: white; value: (Centered) default\n(roboto) font\nwith line break">
+
+          <a-text color="red" align="center" baseline="top" width="1" scale="4 4 4" position="0 0.5 0"
+          font="aileronsemibold"
+          value="Top of box\n(even when multi-line)\naileronsemibold font" ></a-text>
+
+        </a-box>
+<!-- 
+        <a-plane
+          id="message"
+          position="0 2 0"
+          rotation="90 0 0" 
+          material="opacity: 0.5; side: double; color:red;" 
+          width="0.5" 
+          height="0.5"
+        >
+        </a-plane> -->
+
+      </a-marker>
+
+      
+<!--          <a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" type='barcode' value='6'>
+            <a-entity
+                id="animated-model"
+                gltf-model="#animated-asset"
+                scale="2">
+            </a-entity>
+        </a-marker> -->
+      
+      
+      <!-- handle matrix marker -->
+      <!-- 'emitevents' will make the marker emit events when it is found and lost
+		but, since there are no registered listeners for these events, you will not see any effect.
+		You can register event listeners in your own custom component, defined similarly to
+		the 'registerevents' in the inline script above -->
+<!--       <a-marker type="barcode" value="5" id="marker-barcode-5">
+        <a-box
+          position="0 0.5 0"
+          material="opacity: 0.5; side: double;color:red;"
+        >
+                    <a-torus-knot
+            radius="0.26"
+            radius-tubular="0.05"
+            animation="property: rotation; to:360 0 0; dur: 5000; easing: linear; loop: true"
+          >
+          </a-torus-knot>
+        </a-box>
+      </a-marker> -->
+
+      <!-- add a simple camera -->
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
