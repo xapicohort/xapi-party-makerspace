@@ -1,13 +1,148 @@
 <!DOCTYPE html>
 <html>
-  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-  <script src="https://raw.githack.com/jeromeetienne/AR.js/2.0.8/aframe/build/aframe-ar.js"></script>
-  <body>
-    <a-scene embedded arjs>
-      <a-marker preset="hiro">
-        <a-box position="0 0.5 0" material="color: yellow;"></a-box>
-      </a-marker>
-      <a-entity camera></a-entity>
-    </a-scene>
-  </body>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .log {
+    background: red;
+    color: white;
+  }
+
+  .modal {
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s lineaer 0.1s, opacity 0.3s ease;
+  }
+
+  .modal.open {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+  }
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="https://aframe.io/releases/0.9.1/aframe.min.js"></script>
+<!-- include aframe-ar.js -->
+<script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/tincanjs@0.50.0/build/tincan-min.js"></script>
+<script src="xapi.js"></script>
+<script src="index.js"></script>
+
+<body>
+  <!-- <div style="position: fixed; top: 10px; left: 5px; text-align: center; z-index: 1;">
+    <div class="log">STARTING...</div>
+  </div> -->
+  <a-scene embedded
+    arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;">
+
+     <!-- <a-marker eventhandler type="pattern" url="marker/pattern-marker-xapi.patt" id="marker"
+      emitevents="true" cursor="rayOrigin: mouse" raycaster="objects: [data-raycastable]" smooth="true" smoothCount="2">
+
+      <a-box id="model" position="0 0.5 0" scale="1 0.5 1" material="opacity: 0.5; side: double; color: purple;"
+        data-raycastable="true" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+      </a-box>
+
+    </a-marker>
+
+    <a-marker eventhandler type="pattern" url="marker/pattern-one.patt" id="pattern1"
+      emitevents="true" cursor="rayOrigin: mouse" raycaster="objects: [data-raycastable]" smooth="true" smoothCount="2">
+
+      <a-box id="model" position="0 0.5 0" scale="1 0.5 1" material="opacity: 0.5; side: double; color: red;"
+        data-raycastable="true" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+      </a-box>
+
+    </a-marker>
+
+    <a-marker eventhandler type="pattern" url="marker/pattern-two.patt" id="pattern2"
+    emitevents="true" cursor="rayOrigin: mouse" raycaster="objects: [data-raycastable]" smooth="true" smoothCount="2">
+
+    <a-box id="model" position="0 0.5 0" scale="1 0.5 1" material="opacity: 0.5; side: double; color: yellow;"
+      data-raycastable="true" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+    </a-box>
+
+  </a-marker>
+
+    <a-marker eventhandler type="pattern" url="marker/pattern-three.patt" id="pattern3"
+      emitevents="true" cursor="rayOrigin: mouse" raycaster="objects: [data-raycastable]" smooth="true" smoothCount="2">
+
+      <a-box id="model" position="0 0.5 0" scale="1 0.5 1" material="opacity: 0.5; side: double; color: green;"
+        data-raycastable="true" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+      </a-box>
+
+    </a-marker> -->
+
+    <a-marker eventhandler type="pattern" url="marker/pattern-aloe.patt" id="plant-aloe"
+    emitevents="true" cursor="rayOrigin: mouse" raycaster="objects: [data-raycastable]" smooth="true" smoothCount="2">
+
+      <a-box id="plant-aloe-box" position="0 0.5 0" scale="1 0.5 1" material="opacity: 0.5; side: double; color: green;"
+        data-raycastable="true" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+      </a-box>
+
+    </a-marker> 
+    
+    <a-marker eventhandler type="pattern" url="marker/pattern-wateringcan.patt" id="watering-can"
+    emitevents="true" cursor="rayOrigin: mouse" raycaster="objects: [data-raycastable]" smooth="true" smoothCount="2">
+
+      <a-box id="watering-can-box" position="0 0.5 0" scale="1 0.5 1" material="opacity: 0.5; side: double; color: blue;"
+        data-raycastable="true" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+      </a-box>
+
+    </a-marker>
+    
+    <a-marker eventhandler type="pattern" url="marker/pattern-leaf1.patt" id="plant1"
+    emitevents="true" cursor="rayOrigin: mouse" raycaster="objects: [data-raycastable]" smooth="true" smoothCount="2">
+
+      <a-box id="plant1-box" position="0 0.5 0" scale="1 0.5 1" material="opacity: 0.5; side: double; color: yellow;"
+        data-raycastable="true" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+      </a-box>
+
+    </a-marker> 
+    
+    <a-marker eventhandler type="pattern" url="marker/pattern-leaf3.patt" id="plant3"
+    emitevents="true" cursor="rayOrigin: mouse" raycaster="objects: [data-raycastable]" smooth="true" smoothCount="2">
+
+      <a-box id="plant3-box" position="0 0.5 0" scale="1 0.5 1" material="opacity: 0.5; side: double; color: red;"
+        data-raycastable="true" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+      </a-box>
+
+    </a-marker>
+
+
+    <!-- add a simple camera -->
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <!-- modal for login -->
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Enter Email: </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
